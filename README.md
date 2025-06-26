@@ -1,46 +1,123 @@
-# Getting Started with Create React App
+# 🛍️ Promo Products - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sistema de gestão de produtos promocionais, com suporte a cupons, descontos percentuais, controle de estoque e ativação/inativação de produtos.
 
-## Available Scripts
+## 📦 Tecnologias Utilizadas
 
-In the project directory, you can run:
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **React Router DOM**
+- **Lucide React** (ícones)
+- **Axios** (requisições HTTP)
+- **ESLint + Prettier** (padrões de código)
 
-### `npm start`
+## 🛠️ Funcionalidades
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Cadastro, edição, inativação e reativação de produtos
+- Aplicação de desconto via código ou percentual direto
+- Filtros de listagem:
+  - Por preço
+  - Por nome
+  - cupom aplicado
+  - Esgotados
+  - Produtos inativos
+  - Ordenação por nome, preço ou estoque
+- Paginação da listagem de produtos
+- Modal com detalhes do produto
+- Modal para aplicar e remover cupons
+- Modal para inativar ou reativar produtos
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## ▶️ Pré-requisitos
 
-### `npm test`
+Certifique-se de ter os seguintes softwares instalados:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Node.js](https://nodejs.org/) (v18 ou superior)
+- [npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/)
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Como Rodar o Projeto Localmente
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone o repositório
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/seu-usuario/isi-promo-frontend.git
+cd isi-promo-frontend
+```
 
-### `npm run eject`
+### 2. Instale as dependências
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm install 
+# ou 
+yarn install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Configure o ambiente
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Crie um arquivo `.env` na raiz do projeto e adicione:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### 4. Inicie o servidor de desenvolvimento
 
-## Learn More
+```
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- A aplicação estará disponível em: `http://localhost:3000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📂 Estrutura de Pastas
+
+```bash
+├── src/
+│   ├── components/             # Componentes reutilizáveis (Button, Input, etc)
+│   ├── modals/                 # Modais: ApplyDiscountModal,  etc)
+│   ├── pages/                  # Páginas principais (ProductList, etc)
+│   ├── services/               # Serviço de conexão com a API (ProductService.ts)
+│   ├── types/                  # Tipagens globais (IProductItem, ICoupon, etc)
+│   ├── App.tsx                 # Componente principal
+│   └── index.tsx                # Entrada do app React
+```
+
+## 🔍 Principais Endpoints Consumidos
+
+
+| Método             | Endpoint                           | Body (parcial)                          |  Descrição                                      |
+| -------------------| ---------------------------------- | --------------------------------------- | ----------------------------------------------- |
+| **Produtos**                                                                                                                                        |
+| POST               | /products                          | { name, description, price, stock }     | Cadastra um novo produto                        |
+| GET                | /products                          | —                                       | Lista todos os produtos com filtros e paginação |
+| GET                | /products/:id                      | —                                       | Busca um produto pelo ID                        |
+| PATCH              | /products/:id                      | { name?, description?, price?, stock? } | Atualiza parcialmente os dados de um produto    |
+| DELETE             | /products/:id                      | { checkStock }                          | Inativa (soft delete) um produto                |
+| POST               | /products/:id/restore              | { checkStock }                                                                            |
+| **Cupons**                                                                                                                                          |
+| POST               | /coupons                           | { code, percentage, expirationDate }    | Cadastra um novo cupom de desconto              |
+| GET                | /coupons                           | —                                       | Lista todos os cupons                           |
+| GET                | /coupons/:code                     | —                                       | Busca um cupom                                  |
+| PATCH              | /coupons/:code                     | { code?, percentage?, expirationDate? } | Atualiza informações de um cupom                |
+| DELETE             | /coupons/:code                     | —                                       | Inativa um cupom                                |
+| **Aplicação de Cupons**                                                                                                                             |
+| POST               | /products/:productId/discount      | { couponId }                            | Aplica um cupom em um produto                   |
+| DELETE             | /products/:productId/undoDiscount  | —                                       | Inativa um cupom em um produto                  |
+
+## 👩‍💻 Contribuindo
+
+- Faça um fork.
+- Crie uma branch: `git checkout -b feature/minha-feature`.
+- Commit suas alterações: `git commit -m 'feat: minha feature'`.
+- Push na sua branch: `git push origin feature/minha-feature`.
+- Abra um Pull Request.
+
+## 🤝 Autor
+
+Desenvolvido por **[Beatriz Ribeiro](https://www.linkedin.com/in/beatriz-ribeiro-dev/)**
+
+🔗 [GitHub](https://github.com/Biiars00)
+
+📧 Em breve: integração de autenticação e testes unitários.
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT.
